@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: backend-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - host: arch.homework
+    http:
+      paths:
+        - path: /otusapp/votinov($|/)(.*)
+          pathType: Prefix
+          backend:
+            service:
+              name: backend
+              port:
+                number: 8000
